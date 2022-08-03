@@ -1,0 +1,70 @@
+.inputWrapper {
+  position: relative;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+.input {
+  padding: 0.8rem;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid black;
+  font-size: 1.125rem;
+
+  &:focus {
+    box-shadow: 0 0 0 4px rgb(135, 181, 251);
+    outline: 0;
+  }
+}
+
+.loader {
+  position: absolute;
+  top: -2px;
+  right: 0;
+  font-weight: bold;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 50vh;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  border-radius: 4px;
+  background-color: #ededed;
+}
+
+.item {
+
+  & + .item {
+    border-top: 1px solid #e1e1e1;
+  }
+}
+
+.itemLink {
+  padding: 0.8rem;
+  text-decoration: none;
+  display: block;
+  color: black;
+
+  &:hover,
+  &:focus {
+    background-color: #e1e1e1;
+    outline: 0;
+  }
+
+  > span {
+    background-color: rgb(242, 255, 172);
+  }
+}
