@@ -40,8 +40,9 @@ export const AutoComplete = () => {
           setIsLoading(true);
           const data = await fetchData(searchTerm);
           const { hits } = data;
+          const filterHits = hits.filter((hit: Hints) => hit.title);
 
-          setResults(hits);
+          setResults(filterHits);
         } catch (error) {
           setHasError(true);
           console.log(error);
