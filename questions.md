@@ -5,9 +5,9 @@ Please answer the following questions to the best of your knowledge, in clear En
 
 **1. What is the difference between Component and PureComponent? give an example where it might break my app.**
 
-Just like functions, Components can also have a "Pure" behavior. Meaning that given the same props and states the Component always returns the same result. PureComponent tends to be more fast than regular components since React doesn't need to do a deep comparison of the old and new values.
+Just like functions, components can also have a "pure" behavior. Meaning that given the same props and states the component always returns the same result. PureComponent tends to be more fast than regular components since React doesn't need to do a deep comparison of the old and new values.
 
-If you use a PureComponent but your data need more than a shallow comparison in order to know whether the component should update or not, you might break the app.
+If you use a PureComponent but your data need more than a shallow comparison in order to know whether the component should update or not, you might break your app.
 
 **2. Context + ShouldComponentUpdate might be dangerous. Can think of why is that?**
 
@@ -29,6 +29,30 @@ I can only remember 2 ways:
 **5. What is a fragment and why do we need it? Give an example where it might break my app.**
 
 The Fragment is an empty HTML tag that is used to wrap the component's template. JSX needs to return a single element, if the template doesn't have it, Fragment must be used otherwise the app will break.
+
+The example below will break the app:
+
+```javascript
+const MyComp = () => {
+  return (
+    <div>Foo</div>
+    <div>Bar</div>
+  )
+}
+```
+
+It can be fixed to:
+
+```javascript
+const MyComp = () => {
+  return (
+    <>
+      <div>Foo</div>
+      <div>Bar</div>
+    </>
+  )
+}
+```
 
 **6. Give 3 examples of the HOC pattern.**
 
@@ -64,6 +88,8 @@ With `useState`, if you want to get the new state after updating it, the `useEff
 
 5 - Remove the `render` method and use only `return` instead.
 
+6 - Remove unnecessary imports.
+
 **10. List a few ways styles can be used with components.**
 
 1 - Importing a `css`/`scss` file directly within the component.
@@ -73,7 +99,7 @@ With `useState`, if you want to get the new state after updating it, the `useEff
 
 **11. How to render an HTML string coming from the server.**
 
-You need to use the `dangerouslySetInnerHTML` prop.
+String coming from the server might be dangerous as it may contain malicious code. You need to use the `dangerouslySetInnerHTML` prop.
 
 Exemple:
 ```javascript
