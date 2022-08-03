@@ -1,6 +1,7 @@
 # Part 2 (up to 45 minutes)
 
 Please answer the following questions to the best of your knowledge, in clear English. Elaborate and try to demonstrate the React knowledge you have. Feel free to give examples and use cases.
+
 **DO NOT USE ANY WEB OR OTHER RESOURCE.**
 
 **1. What is the difference between Component and PureComponent? give an example where it might break my app.**
@@ -14,6 +15,7 @@ If you use a PureComponent but your data need more than a shallow comparison in 
 Unfortunately, I can't elaborate on an adequate answer to this question.
 
 **3. Describe 3 ways to pass information from a component to its PARENT.**
+
 I can only remember 2 ways:
 
 1 - The parent component passes a function as a prop to the child component. The child component then calls this function passing the data as a parameter to this function.
@@ -69,6 +71,7 @@ Examples of HOC in React are `memo` and `forwardRef` functions.
 **8. How many arguments does setState take and why is it async.**
 
 The `setState` function is used in class-based components and accepts two arguments:
+
 1 - The new value to which the state should be updated;
 2 - A callback that has access to the updated state.
 
@@ -93,8 +96,11 @@ With `useState`, if you want to get the new state after updating it, the `useEff
 **10. List a few ways styles can be used with components.**
 
 1 - Importing a `css`/`scss` file directly within the component.
+
 2 - Using `css`/`scss` modules.
+
 3 - Using Styled components
+
 4 - Using Tailwind library.
 
 **11. How to render an HTML string coming from the server.**
