@@ -1,7 +1,7 @@
-import React from 'react';
-import styles from './App.module.css';
 import { Container } from './components/Container';
 import { AutoComplete } from './components/AutoComplete';
+
+import styles from './App.module.css';
 
 function App() {
   return (
