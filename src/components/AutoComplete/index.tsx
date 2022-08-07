@@ -70,7 +70,7 @@ export const AutoComplete = () => {
         className={`${styles.input} ${autocompleteInputClassName}`}
         type="text"
         id="auto-complete"
-        onChange={(e) => debHandleOnChange(e.target.value)}
+        onChange={(e) => debHandleOnChange(e.target.value.trim())}
         onBlur={handleOnBlur}
         onFocus={() => setIsDropdownVisible(true)}
       />
