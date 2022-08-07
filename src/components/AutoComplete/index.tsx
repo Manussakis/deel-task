@@ -4,13 +4,13 @@ import debounce from 'lodash.debounce';
 import { DEBOUNCE_TIME } from '../../utils/constants';
 import { fetchData } from '../../api';
 
-import { Hints } from './types';
+import { Hit } from './types';
 
 import styles from './styles.module.scss';
 
 export const AutoComplete = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [results, setResults] = useState<Hints[]>([]);
+  const [results, setResults] = useState<Hit[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -41,7 +41,7 @@ export const AutoComplete = () => {
           setIsLoading(true);
           const data = await fetchData(searchTerm);
           const { hits } = data;
-          const filterHits = hits.filter((hit: Hints) => hit.title);
+          const filterHits = hits.filter((hit: Hit) => hit.title);
 
           setResults(filterHits);
         } catch (error) {
