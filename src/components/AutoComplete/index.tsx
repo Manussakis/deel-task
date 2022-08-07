@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 import { highlightText } from '../../utils/functions';
 import debounce from 'lodash.debounce';
-import { DEBOUNCE_TIME } from '../../utils/constants';
+import { DEBOUNCE_TIME, ITEM_LINK_CLASSNAME } from '../../utils/constants';
 import { fetchData } from '../../api';
+import { Item } from './Item';
 
 import { Hit } from './types';
 
 import styles from './styles.module.scss';
 
-const itemLinkClassName = 'item-link';
 const autocompleteInputClassName = 'autocomplete-input';
 
 export const AutoComplete = () => {
@@ -27,7 +27,7 @@ export const AutoComplete = () => {
     requestAnimationFrame(() => {
       const activeElement = document.activeElement;
 
-      if (!activeElement?.classList.contains(itemLinkClassName) &&
+      if (!activeElement?.classList.contains(ITEM_LINK_CLASSNAME) &&
         !activeElement?.classList.contains(autocompleteInputClassName)
       ) {
         setIsDropdownVisible(false);
@@ -77,18 +77,18 @@ export const AutoComplete = () => {
       {hasError && <p>Ops! Something went wrong.</p>}
       {isDropdownVisible && !hasError && (
         <ul className={styles.dropdown}>
-          {results.map((item: any) => (
-            <li className={styles.item} key={item.objectID}>
-              {/* @TODO: It should highlight the term in the text regardless of whether
-              the term is lowercase or uppercase. */}
-              <a
-                className={`${styles.itemLink} ${itemLinkClassName}`}
-                href={item.url}
+          {results.map((item: Hit) => {
+            const content = highlightText(item.title, searchTerm);
+
+            return (
+              <Item
+                key={item.objectID}
+                url={item.url}
                 onBlur={handleOnBlur}
-                dangerouslySetInnerHTML={{__html: highlightText(item.title, searchTerm)}}
+                content={content}
               />
-            </li>
-          ))}
+            );
+          })}
         </ul>
       )}
     </div>
