@@ -8,6 +8,9 @@ import { Hit } from './types';
 
 import styles from './styles.module.scss';
 
+const itemLinkClassName = 'item-link';
+const autocompleteInputClassName = 'autocomplete-input';
+
 export const AutoComplete = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState<Hit[]>([]);
@@ -15,16 +18,17 @@ export const AutoComplete = () => {
   const [hasError, setHasError] = useState(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
-  const debHandleOnChange = useCallback(debounce((value: string) => {
-    setSearchTerm(value);
-  }, DEBOUNCE_TIME), []);
+  const debHandleOnChange = useCallback(
+    debounce((value: string) => setSearchTerm(value), DEBOUNCE_TIME),
+    []
+  );
 
   const handleOnBlur = useCallback(() => {
     requestAnimationFrame(() => {
       const activeElement = document.activeElement;
 
-      if (!activeElement?.classList.contains('item-link') &&
-        !activeElement?.classList.contains('autocomplete-input')
+      if (!activeElement?.classList.contains(itemLinkClassName) &&
+        !activeElement?.classList.contains(autocompleteInputClassName)
       ) {
         setIsDropdownVisible(false);
       }
@@ -63,7 +67,7 @@ export const AutoComplete = () => {
       {isLoading && <span className={styles.loader}>Loading...</span>}
       <label className={styles.label} htmlFor="auto-complete">Search</label>
       <input
-        className={`${styles.input} autocomplete-input`}
+        className={`${styles.input} ${autocompleteInputClassName}`}
         type="text"
         id="auto-complete"
         onChange={(e) => debHandleOnChange(e.target.value)}
@@ -78,7 +82,7 @@ export const AutoComplete = () => {
               {/* @TODO: It should highlight the term in the text regardless of whether
               the term is lowercase or uppercase. */}
               <a
-                className={`${styles.itemLink} item-link`}
+                className={`${styles.itemLink} ${itemLinkClassName}`}
                 href={item.url}
                 onBlur={handleOnBlur}
                 dangerouslySetInnerHTML={{__html: highlightText(item.title, searchTerm)}}
