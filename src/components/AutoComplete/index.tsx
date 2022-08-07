@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
-import { debounce, highlightText } from '../../utils/functions';
+import { highlightText } from '../../utils/functions';
+import debounce from 'lodash.debounce';
 import { DEBOUNCE_TIME } from '../../utils/constants';
 import { fetchData } from '../../api';
 
