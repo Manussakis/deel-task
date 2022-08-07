@@ -8,11 +8,11 @@ Please answer the following questions to the best of your knowledge, in clear En
 
 Just like functions, components can also have a "pure" behavior. Meaning that given the same props and states the component always returns the same result. PureComponent tends to be more fast than regular components since React doesn't need to do a deep comparison of the old and new values.
 
-If you use a PureComponent but your data need more than a shallow comparison in order to know whether the component should update or not, you might break your app.
+If you use a PureComponent but your data needs more than a shallow comparison in order to know whether the component should update or not, you might break your app.
 
 **2. Context + ShouldComponentUpdate might be dangerous. Can think of why is that?**
 
-Unfortunately, I can't elaborate on an adequate answer to this question.
+`ShouldComponentUpdate` is a lifecycle method used to decide whether a component should be updated or not. However, every time a Context's value changes, all components that are consuming this value will be updated, regardless of whether they (or their ancestors) implement SCU. This may cause unexpected updates in the app.
 
 **3. Describe 3 ways to pass information from a component to its PARENT.**
 
