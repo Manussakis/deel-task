@@ -6,9 +6,9 @@ Please answer the following questions to the best of your knowledge, in clear En
 
 **1. What is the difference between Component and PureComponent? give an example where it might break my app.**
 
-Just like functions, components can also have a "pure" behavior. Meaning that given the same props and states the component always returns the same result. PureComponent tends to be more fast than regular components since React doesn't need to do a deep comparison of the old and new values.
+Just like functions, components can also have a "pure" behavior, which means that given the same props and state, the pure component always returns the same result. Pure components improve the app's performance since they only re-render if their props or state change and not if their parent re-render.
 
-If you use a PureComponent but your data needs more than a shallow comparison in order to know whether the component should update or not, you might break your app.
+Pure components use shallow comparison to determine whether they should update or not, so if your component needs a deep comparison in order to make this decision, you might break your app.
 
 **2. Context + ShouldComponentUpdate might be dangerous. Can think of why is that?**
 
@@ -52,30 +52,56 @@ const MyComp = () => {
       <div>Foo</div>
       <div>Bar</div>
     </>
-  )
-}
+  );
+};
 ```
 
 **6. Give 3 examples of the HOC pattern.**
 
 HOC stands for High Order Component, meaning a function that accepts a component as a parameter, performs some modifications, and then returns a new component. This technique can avoid duplicate code.
 
-Examples of HOC in React are `memo` and `forwardRef` functions.
+Examples of HOC are `memo` and `forwardRef` functions in React, and `withRouter` function in `react-router-dom` package.
 
 **7. what's the difference in handling exceptions in promises, callbacks and async...await.**
 
 1 - Promises: The error is caught within the `catch` method.
 
-2 - Async...await and Callbacks: The `try...catch` block must be used to catch the error.
+2 - Async...await: The `try...catch` block must be used to catch the error.
+
+3 - Callbacks: The Error-First Callback pattern can be used. The error is passed as the callback's first parameter. If the error is not null, then it's thrown by the callback.
+
+Example:
+
+```js
+function squareEvenNumber(number, cb) {
+  setTimeout(() => {
+    if (number % 2 !== 0) {
+      return cb(new Error('The "number" parameter is odd.'));
+    }
+
+    cb(null, number * number);
+  }, 500);
+}
+
+function myCallback(error, square) {
+  if (error) {
+    return console.error(error);
+  }
+
+  return console.log(square);
+}
+
+squareEvenNumber(3, myCallback); // Error: The "number" parameter is odd.
+```
 
 **8. How many arguments does setState take and why is it async.**
 
-The `setState` function is used in class-based components and accepts two arguments:
+The `setState` method is used in class-based components and accepts two arguments:
 
-1 - The new value to which the state should be updated;
+1 - The new value to which the state should be updated or a function if you need to have access to the current state before updating it;
 2 - A callback that has access to the updated state.
 
-`setState` is async because react has an internal algorithm to decide the best moment to update the state.
+`setState` is async because react has an internal algorithm to decide the best moment to update the state. Updating state triggers component re-rendering and this may be a costly operation. By making it async, users can have a better experience.
 
 With `useState`, if you want to get the new state after updating it, the `useEffect` hook is the best option.
 
@@ -108,6 +134,7 @@ With `useState`, if you want to get the new state after updating it, the `useEff
 String coming from the server might be dangerous as it may contain malicious code. You need to use the `dangerouslySetInnerHTML` prop.
 
 Exemple:
+
 ```javascript
 dangerouslySetInnerHTML={{__html: yourHTMLString)}}
 ```
